@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-
-<html>
+<html ng-app="app" ng-controller="Todo">
 <head>
 	<meta charset="utf-8">
-	<title>Andrii's ToDo List</title>
+	<title>{{::todo.user}}'s ToDo List</title>
 	<link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="vendor/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="css/main.css" rel="stylesheet">
@@ -11,8 +10,10 @@
 <body>
 	<div class="container">
 		<div class="page-header">
-			<h1><img class="photo" src="images/VZ.jpg">
-				Andrii's ToDo List
+			<h1>
+                <!--<img class="photo" src="images/VZ.jpg">-->
+                <img class="photo" src="{{todo.userPhoto2}}">
+				{{::todo.user}}'s ToDo List
 			</h1>
 		</div>
 		<div class="panel">
@@ -36,10 +37,13 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr><td>Estimate...</td><td>No</td></tr>
+                    <tr ng-repeat="item in todo.items">
+                        <td>{{item.action}}</td>
+                        <td>{{item.done}}</td>
+					<!--<tr><td>Estimate...</td><td>No</td></tr>
 					<tr><td>Create...</td><td>No</td></tr>
 					<tr><td>Edit...</td><td>Yes</td></tr>
-					<tr><td>Delete...</td><td>No</td></tr>
+					<tr><td>Delete...</td><td>No</td></tr>-->
 				</tbody>
 			</table>
 		</div>
