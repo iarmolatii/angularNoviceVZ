@@ -12,5 +12,4 @@ Setup Environment
 	> npm install -g gulp
 
 5. run project from project folder:
-	> npm start
-    
+	> npm start    

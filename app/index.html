@@ -7,13 +7,14 @@
 	<link href="vendor/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="css/main.css" rel="stylesheet">
 </head>
-<body>
+<body ng-cloak>
 	<div class="container">
 		<div class="page-header">
 			<h1>
                 <!--<img class="photo" src="images/VZ.jpg">-->
                 <img class="photo" src="{{todo.userPhoto2}}">
 				{{::todo.user}}'s ToDo List
+                <span class="label label-default" ng-class="warningLevel(todo.items)" ng-if="incompleteCount(todo.items)!==0">{{incompleteCount(todo.items)}}</span>
 			</h1>
 		</div>
 		<div class="panel">
@@ -21,9 +22,9 @@
 				<div class="form-group">
 					<label for="action">Action:</label>
 					<div class="input-group">
-						<input id="action" name="action" class="form-control" />
+						<input id="action" name="action" class="form-control" ng-model="newItem.action"/>
 						<span class="input-group-btn">
-							<button class="btn btn-default">Add</button>
+							<button class="btn btn-default" ng-disabled="!newItem.action">Add</button>
 						</span>
 					</div>
 				</div>
@@ -38,8 +39,9 @@
 				</thead>
 				<tbody>
                     <tr ng-repeat="item in todo.items">
+                        <td><input type="checkbox" ng-model="item.done"></td>
                         <td>{{item.action}}</td>
-                        <td>{{item.done}}</td>
+                        <td>{{item.done ? "Yes" : "No"}}</td>
 					<!--<tr><td>Estimate...</td><td>No</td></tr>
 					<tr><td>Create...</td><td>No</td></tr>
 					<tr><td>Edit...</td><td>Yes</td></tr>

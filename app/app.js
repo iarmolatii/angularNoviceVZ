@@ -1,6 +1,7 @@
 (function(){
     "use strict";
     angular.module("app",[])
+    .factory("todoService",todoService)
     .controller("Todo",Todo)
     .value("model",{
         user: "Andrii",
@@ -15,9 +16,34 @@
         ]
     });
 
-    function Todo($scope,model) {
+    function Todo($scope,model,todoService) {
         $scope.todo = model;
+        $scope.incompleteCount = todoService.incompleteCount;
+        $scope.warningLevel = todoService.warningLevel;
         console.log($scope.todo);
     }
 
+    function todoService() {
+        return {
+            incompleteCount, // тут точку с зарятой ставить не нужно
+            warningLevel
+        }
+
+        function incompleteCount(items) {
+            let count = 0;
+
+            // интересная форма записи - пробег по массиву
+            angular.forEach(items, (item) => {
+                if (!item.done) count++;
+            });
+
+            return count;
+        }
+
+        function warningLevel(items) {
+            return incompleteCount(items) < 3
+                ? "label-success"
+            : "label-warning";
+        }
+    }
 })();
